@@ -39,7 +39,6 @@ if ($b == 'install') {
 	// create the table...
 	// is done by the original setup, so do nothing here
     }
-} elseif ($b == 'uninstall') {
-    // you could remove stuff here, but I leave it
 }
+
 ?>
