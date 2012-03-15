@@ -37,7 +37,8 @@ foreach (cot_getextplugins('myfiles.header') as $pl)
 
 $mskin = $cfg['plugins_dir']."/myfiles/tpl/myfiles.header.tpl";
 $t = new XTemplate($mskin);
-cot_watch($out['compopup']);
+//cot_checkpoint();
+//cot_watch($out['compopup']);
 $t->assign(array (
 	"HEADER_DOCTYPE" => $cfg['doctype'],
 	"HEADER_META_CONTENTTYPE" => $out['meta_contenttype'],
