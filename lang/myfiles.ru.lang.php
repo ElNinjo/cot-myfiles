@@ -1,10 +1,10 @@
 <?PHP
 /* ====================
- * English Language File for Myfiles Plugin
+ * Russian Language File for Myfiles Plugin
  * Author: 2basix.nl 
 ==================== */
 
-defined('SED_CODE') or die('Wrong URL.');
+defined('COT_CODE') or die('Wrong URL.');
 
 // General
 $L['myfiles_myfilesinfo']	= "Myfiles info";

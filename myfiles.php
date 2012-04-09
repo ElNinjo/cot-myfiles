@@ -4,10 +4,7 @@ Cotonti - Website engine  http://www.cotonti.com
 Author: Company: 2basix.nl
 
 [BEGIN_COT_EXT]
-Code=myfiles
 Hooks=standalone
-Tags=
-Order=10
 [END_COT_EXT]
 ==================== */
 

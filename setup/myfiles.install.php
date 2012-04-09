@@ -11,12 +11,12 @@ if ($b == 'install') {
     // myfiles adds 1 field to the folders table
     $db_pfs_folders = (isset($db_pfs_folders)) ? $db_pfs_folders : $db_x . 'pfs_folders';
 
-    $check = $db->query("SELECT * FROM $db_pfs_folders LIMIT 1")->fetch();
-    if ($check) {
-	$field_names = array_keys($check);
-	if (!in_array('pff_path', $field_names)) {
-	    $result = $db->query("ALTER TABLE $db_pfs_folders ADD pff_path varchar(255) NOT NULL default '/init/'");
-	}
+    $field_names = $db->query("SELECT * FROM $db_pfs_folders LIMIT 1")->fetch();
+    if ($field_names) {
+//		$field_names = array_keys($check);
+		if (!isset($field_names['pff_path'])) {
+			$result = $db->query("ALTER TABLE $db_pfs_folders ADD pff_path varchar(255) NOT NULL default '/init/'");
+		}
     } else {
 	// create the table...
 	// is done by the original setup, so do nothing here

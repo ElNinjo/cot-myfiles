@@ -1,10 +1,7 @@
 <?php
 /* ====================
 [BEGIN_COT_EXT]
-Code=myfiles
 Hooks=header.main
-Tags=
-Order=10
 [END_COT_EXT]
 ==================== */
 

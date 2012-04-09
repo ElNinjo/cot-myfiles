@@ -4,10 +4,8 @@ Cotonti - Website engine  http://www.cotonti.com
 Author: Company: 2basix.nl
 
 [BEGIN_COT_EXT]
-Code=myfiles
 Hooks=page.edit.tags
 Tags=page.edit.tpl:{PLUGIN_MYFILES_JS},{PLUGIN_MYFILES_URLADDFILE},{PLUGIN_MYFILES_URLADDTEXT},{PLUGIN_MYFILES_BROWSER}
-Order=10
 [END_COT_EXT]
 ==================== */
 

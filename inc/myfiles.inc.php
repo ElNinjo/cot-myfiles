@@ -436,6 +436,9 @@ function myfiles_getFilesCount($folderid='0') {
 //==--  Get myfiles infoblock HTML
 //============================================================
 function myfiles_getInfoBlock_html($userid='',$template='') {
+	require_once cot_incfile('pfs', 'module');
+	require_once cot_incfile('uploads');
+
 	global $db, $cfg,$L,$usr,$myFiles,$db_groups,$db_pfs;
 
 	if ($userid=='') {

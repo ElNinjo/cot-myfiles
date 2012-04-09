@@ -175,6 +175,7 @@ cot_block($usr['auth_write']);
 		));
 		$t->parse("MAIN.UPLOAD_ROW");	
 	}
+//	cot_print($singleaction);
 	
 	/* === Hook === */
 		$extp = cot_getextplugins('myfiles.upload.tags');

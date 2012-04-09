@@ -6,20 +6,30 @@
 function ezaddurl(gfile) {
 	if (gfile!="" && opener!==null && !window.opener.closed) {
 		insertText(opener.document, fileadd.formitems[0], fileadd.formitems[1], gfile);
+
 		if (fileadd.quick_action!="") { window.close(); };
-	}	
+	}
 }
+//		insertText(opener.document, fileadd.formitems[0], fileadd.formitems[1], '<img src="'+gfile+'" alt="inserted"/>');
+
 function ezaddthumb(gfile) {
-	if (gfile!="" && opener!==null && !window.opener.closed) {
+
+	if (opener.CKEDITOR.instances.rpagetext != undefined) {
+		opener.CKEDITOR.instances.rpagetext.insertHtml("<img src='"+gfile+"' alt='inserted' />");
+	} else {
 		insertText(opener.document, fileadd.formitems[0], fileadd.formitems[1], '[img='+gfile+']'+gfile+'[/img]');
-		if (fileadd.quick_action!="") { window.close(); };
-	}	
+	}
+	console.log(opener.CKEDITOR.instances.formitems[1]);
+	if (fileadd.quick_action!="") {
+		window.close();
+	};
 }
+
 function ezaddpix(gfile) {
 	if (gfile!="" && opener!==null && !window.opener.closed) {
 		insertText(opener.document, fileadd.formitems[0], fileadd.formitems[1], '[img]'+gfile+'[/img]');
 		if (fileadd.quick_action!="") { window.close(); };
-	}	
+	}
 }
 function ezaddlink(gfile,linktext) {
 	if (gfile!="" && opener!==null && !window.opener.closed) {
@@ -32,7 +42,7 @@ function ezaddlink(gfile,linktext) {
 		}
 		insertText(opener.document, fileadd.formitems[0], fileadd.formitems[1], '[url='+gfile+']'+lnktxt+'[/url]');
 		if (fileadd.quick_action!="") { window.close(); };
-	}	
+	}
 }
 
 function fileadd_triggerParentEvent(folderid) {
@@ -47,14 +57,14 @@ function fileadd_triggerParentEvent(folderid) {
 		catch (err) {}
 	}
 }
-	
+
 function fileadd_GetCurrentFolderid() {
 	var fid=null;
 	try {	// this is if the folderbrowser is present
 			fid=folder_GetCurrentFolderid();
-	} catch(err) { 
+	} catch(err) {
 		// public var if no browser is present
-		fid=fileadd.fixfolderid; 
+		fid=fileadd.fixfolderid;
 	}
 	return fid;
 }
@@ -85,7 +95,7 @@ function checkFileExt(name,formid) {
 
 function FileChange(val,formid) {
 	var str;
-	if (!checkFileExt(val,formid)) {	return false; }	
+	if (!checkFileExt(val,formid)) {	return false; }
 	if(val.indexOf("\\")>=0) {
 		var x=str=val.lastIndexOf("\\");
 		str=val.substring(x+1);
@@ -107,7 +117,7 @@ function prepareFormSubmit(formid) {
 					"dataType":'json',
 					"success":processJson,
 					"formid":formid				};
-    $('#myfilesupload'+formid).submit(function(){ $(this).ajaxSubmit(options);return false;}); 
+    $('#myfilesupload'+formid).submit(function(){ $(this).ajaxSubmit(options);return false;});
 }
 
 function uploadBeforeSend(xhr, opts){
@@ -123,15 +133,15 @@ function upload_abort(formid) {
 		var erroriconhtml="<img style=\"vertical-align:text-bottom\" src=\""+fileadd.basepath+"/img/error.png\" \>";
 		$('#output2').prepend(erroriconhtml+"&nbsp;&nbsp;Aborted:&nbsp;&nbsp;&nbsp;"+$("#smallslot"+formid+' #uploadfilename').html()+"<br />");
 
-	}	
+	}
 }
 
 // process the form before anything has happened
 function uploadBeforeSerialize($form, options){
 	fid=fileadd_GetCurrentFolderid();
 	if (fid!==null) {
-		$('#myfilesupload'+options.formid+' #folder_id').val(fid); 
-	}	
+		$('#myfilesupload'+options.formid+' #folder_id').val(fid);
+	}
 	var filename="";
 	var frname="";
 	filename=$("#myfilesupload"+options.formid+" input[name=userfile]").val();
@@ -143,24 +153,24 @@ function uploadBeforeSerialize($form, options){
 	$("#smallslot"+options.formid+' #uploadfilename').html($('#myfilesupload'+options.formid+' #frname').val());
 	$('#result'+options.formid).html('');
 	$('#icon'+options.formid).html('');
-	
+
 	$("#smallslot"+options.formid).addClass("shown").removeClass("hidden");
 	$("#uploadslot"+options.formid).addClass("busy").removeClass("shown");
-	
+
 	$('.uploadslot.hidden').first().addClass("shown").removeClass("hidden");
 
 	return true
 }
 
-// prepare the form when the DOM is ready 
-$(document).ready(function() { 
+// prepare the form when the DOM is ready
+$(document).ready(function() {
 	for (x=0;x<fileadd.maxuploads;x++) {
-		prepareFormSubmit(''+x); 
+		prepareFormSubmit(''+x);
 	}
-});  
- 
-// pre-submit callback 
-function showRequest(formData, jqForm, options) { 
+});
+
+// pre-submit callback
+function showRequest(formData, jqForm, options) {
 	// no code
 	return true;
 }
@@ -168,7 +178,7 @@ function showRequest(formData, jqForm, options) {
 function createfullname(folder,filename,fileurl){
 	var ret="";
 	if (folder.length==1){ ret=folder+filename;} else {ret=folder+"/"+filename;};
-	
+
 	if (fileurl!=='') {
 		ret= '<a class="mf_filelink" href="'+fileurl+'">'+ret+'</a>';
 	}
@@ -180,7 +190,7 @@ function processJson(data,statustext) {
     // 'data' is the json object returned from the server
 	if (statustext!="success") {
 		alert(statustext);
-	}	
+	}
 	object='null';
 	var error=false;
 	var uploaded=0;
@@ -188,7 +198,7 @@ function processJson(data,statustext) {
 	var checkiconhtml="<img style=\"vertical-align:text-bottom\" src=\""+fileadd.basepath+"/img/check.png\" style=\"vertical-align:middle;\" \>&nbsp;&nbsp;";
 	var pixelhtml="<img src=\""+fileadd.basepath+"/img/pixel.gif\" width=\"16px\" height=\"16px\" \>";
 	var addiconshtml = "";
-	if (typeof data === "string") {alert('myfiles::processJson-ERROR: Invalid datatype !');alert(data);error=true;} 
+	if (typeof data === "string") {alert('myfiles::processJson-ERROR: Invalid datatype !');alert(data);error=true;}
 		else {object=data;}
 
 	// process basic error returns
@@ -199,15 +209,15 @@ function processJson(data,statustext) {
 			$('#output2').prepend(erroriconhtml+"&nbsp;&nbsp;&nbsp;&nbsp;"+fileadd.language[7]+"<br />");
 		}
 		return false;
-	}	
-		
+	}
+
 	if (typeof(object.file)!="undefined") {
 		if (object.file.status=="error") {
 			error=true;
 			$('#output2').prepend(erroriconhtml+"&nbsp;"+createfullname(object.file.foldername,object.file.filename,'')+"&nbsp; &nbsp;"+object.file.message+"<br />");
 		} else {
 			fileadd_triggerParentEvent(object.file.folderid);
-			
+
 			uploaded+=1;
 			$('#icon'+object.file.id).html("");
 			$('#result'+object.file.id).html("");

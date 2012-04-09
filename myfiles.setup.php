@@ -6,12 +6,11 @@ Cotonti - Website engine  http://www.cotonti.com
 Code=myfiles
 Name=Myfiles plugin
 Description=PFS replacement plugin
-Version=160-siena0.1
-Date=2012-mar-02
+Version=160-siena0.2
+Date=2012-apr-02
 Author=2basix.nl (ez)
 Copyright=
-Notes=
-SQL=
+Notes=converted by ElNinjo
 Auth_guests=R
 Lock_guests=W12345A
 Auth_members=R
